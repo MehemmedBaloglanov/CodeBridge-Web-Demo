@@ -1,6 +1,5 @@
 package demo.codeBridge.controller;
 
-
 import demo.codeBridge.dto.request.StudentRequestDto;
 import demo.codeBridge.dto.response.StudentDto;
 import demo.codeBridge.service.StudentService;
@@ -18,37 +17,33 @@ public class StudentController {
     private final StudentService studentService;
 
     @PostMapping
-    public ResponseEntity<StudentDto> create(@RequestBody StudentRequestDto studentRequestDto){
-        StudentDto createStudent=studentService.createStudent(studentRequestDto);
+    public ResponseEntity<StudentDto> create(@RequestBody StudentRequestDto studentRequestDto) {
+        StudentDto createStudent = studentService.createStudent(studentRequestDto);
         return ResponseEntity.ok(createStudent);
     }
 
-
     @PutMapping("/{id}")
-    public ResponseEntity<StudentDto> update(@PathVariable Long id, @RequestBody StudentRequestDto studentRequestDto){
-        StudentDto updateStudent=studentService.updateStudent(id,studentRequestDto);
+    public ResponseEntity<StudentDto> update(@PathVariable Long id, @RequestBody StudentRequestDto studentRequestDto) {
+        StudentDto updateStudent = studentService.updateStudent(id, studentRequestDto);
         return ResponseEntity.ok(updateStudent);
     }
 
-
     @GetMapping("/{id}")
-    public ResponseEntity<StudentDto> get(@PathVariable Long id){
-       StudentDto getStudent = studentService.getStudent(id);
-       return ResponseEntity.ok(getStudent);
+    public ResponseEntity<StudentDto> get(@PathVariable Long id) {
+        StudentDto getStudent = studentService.getStudent(id);
+        return ResponseEntity.ok(getStudent);
     }
 
     @PutMapping("/{studentId}/{trainingId}")
-    public ResponseEntity<StudentDto> updateWithTraining(@PathVariable Long studentId, @PathVariable Long trainingId){
-        StudentDto updateStudentWithTrainings= studentService.updateStudentWithTraining(studentId,trainingId);
+    public ResponseEntity<StudentDto> updateWithTraining(@PathVariable Long studentId, @PathVariable Long trainingId) {
+        StudentDto updateStudentWithTrainings = studentService.updateStudentWithTraining(studentId, trainingId);
         return ResponseEntity.ok(updateStudentWithTrainings);
     }
 
-
-
     @GetMapping
-    public ResponseEntity<Page<StudentDto>> list(Pageable pageable){
-       Page<StudentDto> list = studentService.getList(pageable);
-       return ResponseEntity.ok(list);
+    public ResponseEntity<Page<StudentDto>> list(Pageable pageable) {
+        Page<StudentDto> list = studentService.getList(pageable);
+        return ResponseEntity.ok(list);
     }
 
     @DeleteMapping("/{id}")
@@ -56,8 +51,4 @@ public class StudentController {
         studentService.deleteStudent(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
-
 }

@@ -1,18 +1,15 @@
 package demo.codeBridge.service.serviceImpl;
 
-
 import demo.codeBridge.dto.request.TrainingsRequestDto;
 import demo.codeBridge.dto.response.StudentDto;
 import demo.codeBridge.dto.response.TeacherDto;
 import demo.codeBridge.dto.response.TrainingsDto;
 import demo.codeBridge.entity.TrainingsEntity;
 import demo.codeBridge.exception.NotFoundException;
-import demo.codeBridge.repository.StudentRepository;
 import demo.codeBridge.repository.TeacherRepository;
 import demo.codeBridge.repository.TrainingsRepository;
 import demo.codeBridge.service.TrainingsService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,10 +23,6 @@ public class TrainingsServiceImpl implements TrainingsService {
     private final TrainingsRepository trainingsRepository;
 
     private final TeacherRepository teacherRepository;
-
-    private final StudentRepository studentRepository;
-
-    private final ModelMapper modelMapper;
 
     @Override
     public TrainingsDto createTrainings(TrainingsRequestDto trainingsRequestDto) {
@@ -101,6 +94,4 @@ public class TrainingsServiceImpl implements TrainingsService {
     public void deleteTrainings(Long id) {
         teacherRepository.deleteById(id);
     }
-
-
 }

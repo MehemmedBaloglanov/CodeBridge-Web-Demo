@@ -1,6 +1,5 @@
 package demo.codeBridge.repository;
 
-
 import demo.codeBridge.entity.StudentEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

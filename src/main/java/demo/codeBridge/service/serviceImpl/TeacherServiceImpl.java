@@ -1,11 +1,8 @@
 package demo.codeBridge.service.serviceImpl;
 
-
 import demo.codeBridge.dto.request.TeacherRequestDto;
-import demo.codeBridge.dto.response.StudentDto;
 import demo.codeBridge.dto.response.TeacherDto;
 import demo.codeBridge.dto.response.TrainingsDto;
-import demo.codeBridge.entity.StudentEntity;
 import demo.codeBridge.entity.TeacherEntity;
 import demo.codeBridge.entity.TrainingsEntity;
 import demo.codeBridge.exception.NotFoundException;
@@ -23,10 +20,8 @@ import org.springframework.stereotype.Service;
 public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherRepository teacherRepository;
-
     private final TrainingsRepository trainingsRepository;
     private final ModelMapper modelMapper;
-
 
     @Override
     public TeacherDto createTeacher(TeacherRequestDto teacherRequestDto) {
@@ -128,9 +123,6 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public void deleteTeacher(Long id) {
         teacherRepository.deleteById(id);
-}
 
-
-
-
+    }
 }

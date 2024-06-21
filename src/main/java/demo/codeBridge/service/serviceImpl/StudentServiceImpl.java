@@ -1,6 +1,5 @@
 package demo.codeBridge.service.serviceImpl;
 
-
 import demo.codeBridge.dto.request.StudentRequestDto;
 import demo.codeBridge.dto.response.StudentDto;
 import demo.codeBridge.dto.response.TrainingsDto;
@@ -12,13 +11,11 @@ import demo.codeBridge.repository.TrainingsRepository;
 import demo.codeBridge.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 
 @Service
 @RequiredArgsConstructor
@@ -94,8 +91,6 @@ public class StudentServiceImpl implements StudentService {
                 });
     }
 
-
-
     @Override
     public void deleteStudent(Long id) {
         studentRepository.deleteById(id);
@@ -105,7 +100,6 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto updateStudentWithTraining(Long studentId, Long trainingId) {
         StudentEntity student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new NotFoundException("Teacher not found with ID: " + studentId));
-
         TrainingsEntity training = trainingsRepository.findById(trainingId)
                 .orElseThrow(() -> new NotFoundException("Training not found with ID: " + trainingId));
         student.setTrainings(training);
@@ -116,5 +110,5 @@ public class StudentServiceImpl implements StudentService {
                 .feedback(save.getFeedback())
                 .training(trainingsDto)
                 .build();
-}
+    }
 }

@@ -2,7 +2,6 @@ package demo.codeBridge.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,7 +15,6 @@ public class NewsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
     private String author;
     private String content;
@@ -24,7 +22,6 @@ public class NewsEntity {
     private LocalDateTime publicationDate;
     private LocalDateTime lastUpdatedDate;
     private String imageUrl;
-
     @Builder.Default
     private Integer viewCount=0;
 }

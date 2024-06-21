@@ -21,7 +21,6 @@ public class NewsController {
        return ResponseEntity.ok(createNews);
     }
 
-
     @PutMapping("/{id}")
     public ResponseEntity<NewsDto> update(@PathVariable Long id,@RequestBody NewsRequestDto newsRequestDto){
         NewsDto updateNews=newsService.updateNews(id,newsRequestDto);
@@ -45,5 +44,4 @@ public class NewsController {
         Page<NewsDto> listNews= newsService.getList(pageable);
         return ResponseEntity.ok(listNews);
     }
-
 }

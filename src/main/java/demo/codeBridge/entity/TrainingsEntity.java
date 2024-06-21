@@ -2,9 +2,7 @@ package demo.codeBridge.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.List;
-
 
 @Entity
 @Table(name = "trainings")
@@ -17,13 +15,9 @@ public class TrainingsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String trainingName;
-
     @OneToMany(mappedBy = "trainings")
     private List<TeacherEntity> teacher;
-
     @OneToMany(mappedBy = "trainings")
     private List<StudentEntity> students;
-
 }

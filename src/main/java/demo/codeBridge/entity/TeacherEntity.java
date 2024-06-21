@@ -1,7 +1,7 @@
 package demo.codeBridge.entity;
+
 import jakarta.persistence.*;
 import lombok.*;
-
 
 @Entity
 @Table(name = "teachers")
@@ -18,10 +18,7 @@ public class TeacherEntity {
     private String contact;
     private String picture;
     private String demoVideo;
-
     @ManyToOne
     @JoinColumn(name = "training_id")
     private TrainingsEntity trainings;
-
-
 }

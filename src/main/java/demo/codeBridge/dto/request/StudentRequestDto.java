@@ -1,12 +1,7 @@
 package demo.codeBridge.dto.request;
 
-import demo.codeBridge.entity.TrainingsEntity;
-import jakarta.persistence.OneToOne;
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
-
 
 @Data
 @Builder

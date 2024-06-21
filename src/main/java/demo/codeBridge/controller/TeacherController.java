@@ -33,6 +33,7 @@ public class TeacherController {
         TeacherDto updateTeacherWithTrainings=teacherService.updateTeacherWithTraining(teacherId,trainingId);
         return ResponseEntity.ok(updateTeacherWithTrainings);
     }
+
     @GetMapping("/{id}")
     public ResponseEntity<TeacherDto> get(@PathVariable Long id){
          TeacherDto getTeacher=teacherService.getTeacher(id);
@@ -50,5 +51,4 @@ public class TeacherController {
         teacherService.deleteTeacher(id);
         return ResponseEntity.noContent().build();
     }
-
 }

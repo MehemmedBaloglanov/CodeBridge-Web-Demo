@@ -1,11 +1,9 @@
 package demo.codeBridge.service;
 
-
 import demo.codeBridge.dto.request.TeacherRequestDto;
 import demo.codeBridge.dto.response.TeacherDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.PathVariable;
 
 public interface TeacherService {
     TeacherDto createTeacher(TeacherRequestDto teacherRequestDto);

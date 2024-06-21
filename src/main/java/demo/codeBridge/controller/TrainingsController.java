@@ -1,4 +1,5 @@
 package demo.codeBridge.controller;
+
 import demo.codeBridge.dto.request.TrainingsRequestDto;
 import demo.codeBridge.dto.response.TrainingsDto;
 import demo.codeBridge.service.TrainingsService;

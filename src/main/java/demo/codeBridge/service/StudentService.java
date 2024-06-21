@@ -15,7 +15,6 @@ public interface StudentService {
 
     StudentDto updateStudentWithTraining(Long studentId, Long trainingId);
 
-
     Page<StudentDto> getList(Pageable pageable);
 
     StudentDto getStudent(Long id1);
