@@ -7,6 +7,7 @@ import demo.codeBridge.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,36 +18,43 @@ public class StudentController {
     private final StudentService studentService;
 
     @PostMapping
-    public StudentDto create(@RequestBody StudentRequestDto studentRequestDto){
-        return studentService.createStudent(studentRequestDto);
+    public ResponseEntity<StudentDto> create(@RequestBody StudentRequestDto studentRequestDto){
+        StudentDto createStudent=studentService.createStudent(studentRequestDto);
+        return ResponseEntity.ok(createStudent);
     }
 
+
     @PutMapping("/{id}")
-    public StudentDto update(@PathVariable Long id, @RequestBody StudentRequestDto studentRequestDto){
-        return studentService.updateStudent(id,studentRequestDto);
+    public ResponseEntity<StudentDto> update(@PathVariable Long id, @RequestBody StudentRequestDto studentRequestDto){
+        StudentDto updateStudent=studentService.updateStudent(id,studentRequestDto);
+        return ResponseEntity.ok(updateStudent);
     }
 
 
     @GetMapping("/{id}")
-    public StudentDto getStudentWithTraining(@PathVariable Long id){
-        return studentService.getStudent(id);
+    public ResponseEntity<StudentDto> get(@PathVariable Long id){
+       StudentDto getStudent = studentService.getStudent(id);
+       return ResponseEntity.ok(getStudent);
     }
 
     @PutMapping("/{studentId}/{trainingId}")
-    public StudentDto updateWithTraining(@PathVariable Long studentId, @PathVariable Long trainingId){
-        return studentService.updateStudentWithTraining(studentId,trainingId);
+    public ResponseEntity<StudentDto> updateWithTraining(@PathVariable Long studentId, @PathVariable Long trainingId){
+        StudentDto updateStudentWithTrainings= studentService.updateStudentWithTraining(studentId,trainingId);
+        return ResponseEntity.ok(updateStudentWithTrainings);
     }
 
 
 
     @GetMapping
-    public Page<StudentDto> list(Pageable pageable){
-        return studentService.getList(pageable);
+    public ResponseEntity<Page<StudentDto>> list(Pageable pageable){
+       Page<StudentDto> list = studentService.getList(pageable);
+       return ResponseEntity.ok(list);
     }
 
     @DeleteMapping("/{id}")
-    private void delete(@PathVariable Long id) {
+    private ResponseEntity<Void> delete(@PathVariable Long id) {
         studentService.deleteStudent(id);
+        return ResponseEntity.noContent().build();
     }
 
 

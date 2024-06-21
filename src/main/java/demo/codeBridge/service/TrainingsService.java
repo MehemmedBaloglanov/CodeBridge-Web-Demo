@@ -9,20 +9,8 @@ public interface TrainingsService {
     TrainingsDto createTrainings(TrainingsRequestDto trainingsRequestDto);
 
     TrainingsDto updateTrainings(Long id, TrainingsRequestDto trainingsRequestDto);
-
-    TrainingsDto updateWithTeacherId(Long teacherId, Long trainingId);
-
-    TrainingsDto updateByStudentId(Long studentId, Long trainingId);
-
-    TrainingsDto updateWithTopicId(Long topicId, Long trainingId);
-
     TrainingsDto getTrainings(Long id1);
-
-    TrainingsDto getTrainingsWithTeacher(Long id1);
-
-    TrainingsDto getTrainingsWithStudent(Long id1);
-
-    TrainingsDto getTrainingsWithTopic(Long id1);
-
     Page<TrainingsDto> getList(Pageable pageable);
+
+    void deleteTrainings(Long id);
 }

@@ -26,6 +26,4 @@ public class TrainingsEntity {
     @OneToMany(mappedBy = "trainings")
     private List<StudentEntity> students;
 
-    @OneToMany(mappedBy = "trainings")
-    private List<TopicEntity> topics;
 }

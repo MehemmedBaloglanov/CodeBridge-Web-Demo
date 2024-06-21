@@ -16,5 +16,4 @@ public class TrainingsRequestDto {
 
     private List<StudentRequestDto> students;
 
-    private List<TopicsRequestDto> topics;
 }
