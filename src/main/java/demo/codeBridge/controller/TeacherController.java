@@ -18,32 +18,27 @@ public class TeacherController {
 
     @PostMapping
     public ResponseEntity<TeacherDto> create(@RequestBody TeacherRequestDto teacherRequestDto){
-        TeacherDto createTeacher=teacherService.createTeacher(teacherRequestDto);
-        return ResponseEntity.ok(createTeacher);
+        return ResponseEntity.ok(teacherService.createTeacher(teacherRequestDto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<TeacherDto> update(@PathVariable Long id, @RequestBody TeacherRequestDto teacherRequestDto){
-        TeacherDto updateTeacher=teacherService.updateTeacher(id,teacherRequestDto);
-        return ResponseEntity.ok(updateTeacher);
+        return ResponseEntity.ok(teacherService.updateTeacher(id,teacherRequestDto));
     }
 
     @PutMapping("/{teacherId}/{trainingId}")
     public ResponseEntity<TeacherDto> update1(@PathVariable Long teacherId,@PathVariable Long trainingId){
-        TeacherDto updateTeacherWithTrainings=teacherService.updateTeacherWithTraining(teacherId,trainingId);
-        return ResponseEntity.ok(updateTeacherWithTrainings);
+        return ResponseEntity.ok(teacherService.updateTeacherWithTraining(teacherId,trainingId));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TeacherDto> get(@PathVariable Long id){
-         TeacherDto getTeacher=teacherService.getTeacher(id);
-         return ResponseEntity.ok(getTeacher);
+         return ResponseEntity.ok(teacherService.getTeacher(id));
     }
 
     @GetMapping
     public ResponseEntity<Page<TeacherDto>> list(Pageable pageable){
-        Page<TeacherDto> list=teacherService.getList(pageable);
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(teacherService.getList(pageable));
     }
 
     @DeleteMapping("/{id}")

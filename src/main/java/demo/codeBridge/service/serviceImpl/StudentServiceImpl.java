@@ -15,7 +15,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -106,9 +105,11 @@ public class StudentServiceImpl implements StudentService {
         StudentEntity save=studentRepository.save(student);
         final TrainingsDto trainingsDto = modelMapper.map(save.getTrainings(), TrainingsDto.class);
         return StudentDto.builder()
+                .id(save.getId())
                 .about(save.getAbout())
                 .feedback(save.getFeedback())
                 .training(trainingsDto)
                 .build();
     }
+
 }

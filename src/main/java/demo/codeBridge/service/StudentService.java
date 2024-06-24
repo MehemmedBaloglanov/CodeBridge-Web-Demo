@@ -3,6 +3,7 @@ package demo.codeBridge.service;
 
 import demo.codeBridge.dto.request.StudentRequestDto;
 import demo.codeBridge.dto.response.StudentDto;
+import demo.codeBridge.dto.response.TrainingsDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

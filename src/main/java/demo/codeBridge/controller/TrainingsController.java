@@ -18,26 +18,22 @@ public class TrainingsController {
 
     @PostMapping
     public ResponseEntity<TrainingsDto> create(@RequestBody TrainingsRequestDto trainingsRequestDto){
-        TrainingsDto createTrainings= trainingsService.createTrainings(trainingsRequestDto);
-        return ResponseEntity.ok(createTrainings);
+        return ResponseEntity.ok(trainingsService.createTrainings(trainingsRequestDto));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<TrainingsDto> update(@PathVariable Long id, @RequestBody TrainingsRequestDto trainingsRequestDto){
-        TrainingsDto updateTrainings=trainingsService.updateTrainings(id,trainingsRequestDto);
-        return ResponseEntity.ok(updateTrainings);
+        return ResponseEntity.ok(trainingsService.updateTrainings(id,trainingsRequestDto));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TrainingsDto> getTraining(@PathVariable Long id){
-        TrainingsDto getTrainings= trainingsService.getTrainings(id);
-        return ResponseEntity.ok(getTrainings);
+        return ResponseEntity.ok(trainingsService.getTrainings(id));
     }
 
     @GetMapping
     public ResponseEntity<Page<TrainingsDto>> list(Pageable pageable){
-        Page<TrainingsDto> list=trainingsService.getList(pageable);
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(trainingsService.getList(pageable));
     }
 
     @DeleteMapping("{id}")

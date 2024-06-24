@@ -16,8 +16,8 @@ public class TrainingsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String trainingName;
-    @OneToMany(mappedBy = "trainings")
+    @OneToMany(mappedBy = "trainings",cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     private List<TeacherEntity> teacher;
-    @OneToMany(mappedBy = "trainings")
+    @OneToMany(mappedBy = "trainings",cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
     private List<StudentEntity> students;
 }

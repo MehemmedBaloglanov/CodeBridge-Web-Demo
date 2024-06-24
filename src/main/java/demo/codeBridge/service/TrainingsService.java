@@ -12,5 +12,6 @@ public interface TrainingsService {
     TrainingsDto getTrainings(Long id1);
     Page<TrainingsDto> getList(Pageable pageable);
 
+
     void deleteTrainings(Long id);
 }

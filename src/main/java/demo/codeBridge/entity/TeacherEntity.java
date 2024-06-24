@@ -3,6 +3,8 @@ package demo.codeBridge.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "teachers")
 @Builder
@@ -10,7 +12,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TeacherEntity {
+public class TeacherEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,7 +20,7 @@ public class TeacherEntity {
     private String contact;
     private String picture;
     private String demoVideo;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "training_id")
     private TrainingsEntity trainings;
 }

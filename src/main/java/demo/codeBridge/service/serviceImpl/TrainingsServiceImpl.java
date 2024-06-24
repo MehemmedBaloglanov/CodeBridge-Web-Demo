@@ -22,8 +22,6 @@ public class TrainingsServiceImpl implements TrainingsService {
 
     private final TrainingsRepository trainingsRepository;
 
-    private final TeacherRepository teacherRepository;
-
     @Override
     public TrainingsDto createTrainings(TrainingsRequestDto trainingsRequestDto) {
         TrainingsEntity trainings = TrainingsEntity.builder()
@@ -92,6 +90,8 @@ public class TrainingsServiceImpl implements TrainingsService {
 
     @Override
     public void deleteTrainings(Long id) {
-        teacherRepository.deleteById(id);
+        trainingsRepository.deleteById(id);
     }
+
+
 }
