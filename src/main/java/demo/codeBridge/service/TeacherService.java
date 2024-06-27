@@ -7,14 +7,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface TeacherService {
     TeacherDto createTeacher(TeacherRequestDto teacherRequestDto);
-
     TeacherDto updateTeacher(Long id, TeacherRequestDto teacherRequestDto);
-
     TeacherDto getTeacher(Long id);
-
     void deleteTeacher(Long id);
-
-    TeacherDto updateTeacherWithTraining(Long teacherId,Long trainingId);
-
+    TeacherDto updateTeacherWithTraining(Long teacherId, Long trainingId);
     Page<TeacherDto> getList(Pageable pageable);
 }

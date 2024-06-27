@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 @Builder
 public class TeacherRequestDto {
-
     private String about;
     private String contact;
     private String picture;

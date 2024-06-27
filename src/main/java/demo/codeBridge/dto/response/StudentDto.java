@@ -1,6 +1,6 @@
 package demo.codeBridge.dto.response;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

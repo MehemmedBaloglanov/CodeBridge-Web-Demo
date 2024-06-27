@@ -1,6 +1,7 @@
 package demo.codeBridge.service.serviceImpl;
 
 import demo.codeBridge.dto.request.TeacherRequestDto;
+import demo.codeBridge.dto.response.StudentDto;
 import demo.codeBridge.dto.response.TeacherDto;
 import demo.codeBridge.dto.response.TrainingsDto;
 import demo.codeBridge.entity.TeacherEntity;
@@ -14,9 +15,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class TeacherServiceImpl implements TeacherService {
 
     private final TeacherRepository teacherRepository;
@@ -31,14 +34,8 @@ public class TeacherServiceImpl implements TeacherService {
                 .picture(teacherRequestDto.getPicture())
                 .demoVideo(teacherRequestDto.getDemoVideo())
                 .build();
-        TeacherEntity save = teacherRepository.save(teacher);
-        return TeacherDto.builder()
-                .id(save.getId())
-                .about(save.getAbout())
-                .contact(save.getContact())
-                .picture(save.getPicture())
-                .demoVideo(save.getDemoVideo())
-                .build();
+        TeacherEntity savedEntity = teacherRepository.save(teacher);
+        return convertToDto(savedEntity);
     }
 
     @Override
@@ -49,50 +46,47 @@ public class TeacherServiceImpl implements TeacherService {
         teacher.setContact(teacherRequestDto.getContact());
         teacher.setPicture(teacherRequestDto.getPicture());
         teacher.setDemoVideo(teacherRequestDto.getDemoVideo());
-
-        TeacherEntity save = teacherRepository.save(teacher);
-        return TeacherDto.builder()
-                .id(save.getId())
-                .about(save.getAbout())
-                .contact(save.getContact())
-                .picture(save.getPicture())
-                .demoVideo(save.getDemoVideo())
-                .build();
+        TeacherEntity updatedEntity = teacherRepository.save(teacher);
+        return convertToDto(updatedEntity);
     }
+
     @Override
     public TeacherDto updateTeacherWithTraining(Long teacherId, Long trainingId) {
         TeacherEntity teacher = teacherRepository.findById(teacherId)
                 .orElseThrow(() -> new NotFoundException("Teacher not found with ID: " + teacherId));
-
         TrainingsEntity training = trainingsRepository.findById(trainingId)
                 .orElseThrow(() -> new NotFoundException("Training not found with ID: " + trainingId));
-        teacher.setTrainings(training);
-        TeacherEntity save= teacherRepository.save(teacher);
-        final TrainingsDto trainingsDto = modelMapper.map(save.getTrainings(), TrainingsDto.class);
+        teacher.setTraining(training);
+        TeacherEntity updatedEntity = teacherRepository.save(teacher);
         return TeacherDto.builder()
-                .about(save.getAbout())
-                .contact(save.getContact())
-                .picture(save.getPicture())
-                .demoVideo(save.getDemoVideo())
-                .training(trainingsDto)
+                .id(updatedEntity.getId())
+                .about(updatedEntity.getAbout())
+                .contact(updatedEntity.getContact())
+                .picture(updatedEntity.getPicture())
+                .demoVideo(updatedEntity.getDemoVideo())
+                .training(TrainingsDto.builder()
+                        .id(updatedEntity.getTraining().getId())
+                        .trainingName(updatedEntity.getTraining().getTrainingName())
+                        .build())
                 .build();
     }
 
     @Override
-    public TeacherDto getTeacher(Long id1) {
-        TeacherEntity teacher = teacherRepository.findById(id1)
-                .orElseThrow(() -> new NotFoundException("Student not found with ID: " + id1));
-        if (teacher.getTrainings() != null) {
-            final TrainingsDto trainingsDto = modelMapper.map(teacher.getTrainings(), TrainingsDto.class);
+    public TeacherDto getTeacher(Long id) {
+        TeacherEntity teacher = teacherRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Teacher not found with ID: " + id));
+        if (teacher.getTraining() != null){
             return TeacherDto.builder()
                     .id(teacher.getId())
                     .about(teacher.getAbout())
                     .contact(teacher.getContact())
                     .picture(teacher.getPicture())
                     .demoVideo(teacher.getDemoVideo())
-                    .training(trainingsDto)
+                    .training(TrainingsDto.builder()
+                            .id(teacher.getTraining().getId())
+                            .trainingName(teacher.getTraining().getTrainingName())
+                            .build())
                     .build();
-
         }
         return TeacherDto.builder()
                 .id(teacher.getId())
@@ -113,16 +107,37 @@ public class TeacherServiceImpl implements TeacherService {
                             .contact(teacherEntity.getContact())
                             .picture(teacherEntity.getPicture())
                             .demoVideo(teacherEntity.getDemoVideo());
-                    if (teacherEntity.getTrainings() != null) {
-                        builder.training(modelMapper.map(teacherEntity.getTrainings(), TrainingsDto.class));
+
+                    if (teacherEntity.getTraining() != null &&
+                            teacherEntity.getTraining().getId() != null &&
+                            teacherEntity.getTraining().getTrainingName() != null) {
+                        builder.training(TrainingsDto.builder()
+                                .id(teacherEntity.getTraining().getId())
+                                .trainingName(teacherEntity.getTraining().getTrainingName())
+                                .build());
                     }
+
                     return builder.build();
                 });
     }
 
+
     @Override
     public void deleteTeacher(Long id) {
+        if (!teacherRepository.existsById(id)) {
+            throw new NotFoundException("Teacher not found with ID: " + id);
+        }
         teacherRepository.deleteById(id);
-
     }
+
+    private TeacherDto convertToDto(TeacherEntity teacherEntity) {
+        return TeacherDto.builder()
+                .id(teacherEntity.getId())
+                .about(teacherEntity.getAbout())
+                .contact(teacherEntity.getContact())
+                .picture(teacherEntity.getPicture())
+                .demoVideo(teacherEntity.getDemoVideo())
+                .build();
+    }
+
 }

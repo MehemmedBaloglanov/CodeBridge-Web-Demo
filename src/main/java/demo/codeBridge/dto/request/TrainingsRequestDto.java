@@ -1,15 +1,17 @@
 package demo.codeBridge.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
-
 import java.util.List;
-
 
 @Data
 @Builder
 public class TrainingsRequestDto {
     private String trainingName;
-    private List<TeacherRequestDto> teacher;
+
+    @JsonIgnore
+    private List<TeacherRequestDto> teachers;
+    @JsonIgnore
     private List<StudentRequestDto> students;
 }

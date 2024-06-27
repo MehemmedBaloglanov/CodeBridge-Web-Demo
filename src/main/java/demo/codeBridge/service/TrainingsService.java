@@ -7,11 +7,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface TrainingsService {
     TrainingsDto createTrainings(TrainingsRequestDto trainingsRequestDto);
-
     TrainingsDto updateTrainings(Long id, TrainingsRequestDto trainingsRequestDto);
-    TrainingsDto getTrainings(Long id1);
+    TrainingsDto getTrainings(Long id);
     Page<TrainingsDto> getList(Pageable pageable);
-
-
     void deleteTrainings(Long id);
 }

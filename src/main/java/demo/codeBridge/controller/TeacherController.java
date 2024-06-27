@@ -17,32 +17,32 @@ public class TeacherController {
     private final TeacherService teacherService;
 
     @PostMapping
-    public ResponseEntity<TeacherDto> create(@RequestBody TeacherRequestDto teacherRequestDto){
+    public ResponseEntity<TeacherDto> create(@RequestBody TeacherRequestDto teacherRequestDto) {
         return ResponseEntity.ok(teacherService.createTeacher(teacherRequestDto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TeacherDto> update(@PathVariable Long id, @RequestBody TeacherRequestDto teacherRequestDto){
-        return ResponseEntity.ok(teacherService.updateTeacher(id,teacherRequestDto));
+    public ResponseEntity<TeacherDto> update(@PathVariable Long id, @RequestBody TeacherRequestDto teacherRequestDto) {
+        return ResponseEntity.ok(teacherService.updateTeacher(id, teacherRequestDto));
     }
 
     @PutMapping("/{teacherId}/{trainingId}")
-    public ResponseEntity<TeacherDto> update1(@PathVariable Long teacherId,@PathVariable Long trainingId){
-        return ResponseEntity.ok(teacherService.updateTeacherWithTraining(teacherId,trainingId));
+    public ResponseEntity<TeacherDto> updateWithTraining(@PathVariable Long teacherId, @PathVariable Long trainingId) {
+        return ResponseEntity.ok(teacherService.updateTeacherWithTraining(teacherId, trainingId));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TeacherDto> get(@PathVariable Long id){
-         return ResponseEntity.ok(teacherService.getTeacher(id));
+    public ResponseEntity<TeacherDto> get(@PathVariable Long id) {
+        return ResponseEntity.ok(teacherService.getTeacher(id));
     }
 
     @GetMapping
-    public ResponseEntity<Page<TeacherDto>> list(Pageable pageable){
+    public ResponseEntity<Page<TeacherDto>> list(Pageable pageable) {
         return ResponseEntity.ok(teacherService.getList(pageable));
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         teacherService.deleteTeacher(id);
         return ResponseEntity.noContent().build();
     }

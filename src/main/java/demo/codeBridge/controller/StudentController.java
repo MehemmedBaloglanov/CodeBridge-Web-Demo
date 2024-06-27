@@ -2,7 +2,6 @@ package demo.codeBridge.controller;
 
 import demo.codeBridge.dto.request.StudentRequestDto;
 import demo.codeBridge.dto.response.StudentDto;
-import demo.codeBridge.dto.response.TrainingsDto;
 import demo.codeBridge.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -37,14 +36,13 @@ public class StudentController {
         return ResponseEntity.ok(studentService.updateStudentWithTraining(studentId, trainingId));
     }
 
-
     @GetMapping
     public ResponseEntity<Page<StudentDto>> list(Pageable pageable) {
         return ResponseEntity.ok(studentService.getList(pageable));
     }
 
-        @DeleteMapping("/{id}")
-        private ResponseEntity<Void> delete(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         studentService.deleteStudent(id);
         return ResponseEntity.noContent().build();
     }
