@@ -1,18 +1,15 @@
 package demo.codeBridge.dto.response;
 
-
-import demo.codeBridge.entity.TrainingsEntity;
-import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
-
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class TeacherDto {
-
     private Long id;
     private String about;
     private String contact;

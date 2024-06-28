@@ -6,6 +6,7 @@ import demo.codeBridge.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,33 +17,33 @@ public class TeacherController {
     private final TeacherService teacherService;
 
     @PostMapping
-    public TeacherDto create(@RequestBody TeacherRequestDto teacherRequestDto){
-        return teacherService.createTeacher(teacherRequestDto);
+    public ResponseEntity<TeacherDto> create(@RequestBody TeacherRequestDto teacherRequestDto) {
+        return ResponseEntity.ok(teacherService.createTeacher(teacherRequestDto));
     }
 
     @PutMapping("/{id}")
-    public TeacherDto update(@PathVariable Long id, @RequestBody TeacherRequestDto teacherRequestDto){
-        return teacherService.updateTeacher(id,teacherRequestDto);
+    public ResponseEntity<TeacherDto> update(@PathVariable Long id, @RequestBody TeacherRequestDto teacherRequestDto) {
+        return ResponseEntity.ok(teacherService.updateTeacher(id, teacherRequestDto));
     }
 
     @PutMapping("/{teacherId}/{trainingId}")
-    public TeacherDto update1(@PathVariable Long teacherId,@PathVariable Long trainingId){
-        return teacherService.updateTeacherWithTraining(teacherId,trainingId);
+    public ResponseEntity<TeacherDto> updateWithTraining(@PathVariable Long teacherId, @PathVariable Long trainingId) {
+        return ResponseEntity.ok(teacherService.updateTeacherWithTraining(teacherId, trainingId));
     }
+
     @GetMapping("/{id}")
-    public TeacherDto get(@PathVariable Long id){
-        return teacherService.getTeacher(id);
+    public ResponseEntity<TeacherDto> get(@PathVariable Long id) {
+        return ResponseEntity.ok(teacherService.getTeacher(id));
     }
 
     @GetMapping
-    public Page<TeacherDto> list(Pageable pageable){
-        return teacherService.getList(pageable);
+    public ResponseEntity<Page<TeacherDto>> list(Pageable pageable) {
+        return ResponseEntity.ok(teacherService.getList(pageable));
     }
 
     @DeleteMapping("/{id}")
-    private void delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         teacherService.deleteTeacher(id);
-}
-
-
+        return ResponseEntity.noContent().build();
+    }
 }

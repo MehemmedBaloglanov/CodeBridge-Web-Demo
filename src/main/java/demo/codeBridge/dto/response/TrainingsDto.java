@@ -1,23 +1,23 @@
 package demo.codeBridge.dto.response;
 
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
 import java.util.List;
-
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class TrainingsDto {
     private Long id;
-
     private String trainingName;
 
-
-    private List<TeacherDto> teacher;
-
+    @JsonIgnore
     private List<StudentDto> students;
 
-    private List<TopicsDto> topics;
+    @JsonIgnore
+    private List<TeacherDto> teachers;
 }
