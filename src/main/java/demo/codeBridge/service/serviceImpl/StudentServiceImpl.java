@@ -23,12 +23,17 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
     private final TrainingsRepository trainingsRepository;
 
-
     @Override
     public StudentDto createStudent(StudentRequestDto studentRequestDto) {
+        TrainingsEntity training = null;
+        if (studentRequestDto.getTrainingId() != null) {
+            training = trainingsRepository.findById(studentRequestDto.getTrainingId())
+                    .orElseThrow(() -> new NotFoundException("Training not found with ID: " + studentRequestDto.getTrainingId()));
+        }
         StudentEntity student = StudentEntity.builder()
                 .about(studentRequestDto.getAbout())
                 .feedback(studentRequestDto.getFeedback())
+                .training(training)
                 .build();
         StudentEntity savedEntity = studentRepository.save(student);
         return convertToDto(savedEntity);
@@ -41,6 +46,12 @@ public class StudentServiceImpl implements StudentService {
         student.setAbout(studentRequestDto.getAbout());
         student.setFeedback(studentRequestDto.getFeedback());
 
+        if (studentRequestDto.getTrainingId() != null) {
+            TrainingsEntity training = trainingsRepository.findById(studentRequestDto.getTrainingId())
+                    .orElseThrow(() -> new NotFoundException("Training not found with ID: " + studentRequestDto.getTrainingId()));
+            student.setTraining(training);
+        }
+
         StudentEntity updatedEntity = studentRepository.save(student);
         return convertToDto(updatedEntity);
     }
@@ -49,22 +60,7 @@ public class StudentServiceImpl implements StudentService {
     public StudentDto getStudent(Long id) {
         StudentEntity student = studentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Student not found with ID: " + id));
-        if(student.getTraining() != null) {
-            return StudentDto.builder()
-                    .id(student.getId())
-                    .about(student.getAbout())
-                    .feedback(student.getFeedback())
-                    .training(TrainingsDto.builder()
-                            .id(student.getTraining().getId())
-                            .trainingName(student.getTraining().getTrainingName())
-                            .build())
-                    .build();
-        }
-        return StudentDto.builder()
-                .id(student.getId())
-                .about(student.getAbout())
-                .feedback(student.getFeedback())
-                .build();
+        return convertToDto(student);
     }
 
     @Override
@@ -75,37 +71,13 @@ public class StudentServiceImpl implements StudentService {
                 .orElseThrow(() -> new NotFoundException("Training not found with ID: " + trainingId));
         student.setTraining(training);
         StudentEntity updatedEntity = studentRepository.save(student);
-        return StudentDto.builder()
-                .id(updatedEntity.getId())
-                .about(updatedEntity.getAbout())
-                .feedback(updatedEntity.getFeedback())
-                .training(TrainingsDto.builder()
-                        .id(updatedEntity.getTraining().getId())
-                        .trainingName(updatedEntity.getTraining().getTrainingName())
-                        .build())
-                .build();
+        return convertToDto(updatedEntity);
     }
 
     @Override
     public Page<StudentDto> getList(Pageable pageable) {
         return studentRepository.findAll(pageable)
-                .map(studentEntity -> {
-                    StudentDto.StudentDtoBuilder builder = StudentDto.builder()
-                            .id(studentEntity.getId())
-                            .about(studentEntity.getAbout())
-                            .feedback(studentEntity.getFeedback());
-
-                    if (studentEntity.getTraining() != null &&
-                            studentEntity.getTraining().getId() != null &&
-                            studentEntity.getTraining().getTrainingName() != null) {
-                        builder.training(TrainingsDto.builder()
-                                .id(studentEntity.getTraining().getId())
-                                .trainingName(studentEntity.getTraining().getTrainingName())
-                                .build());
-                    }
-
-                    return builder.build();
-                });
+                .map(this::convertToDto);
     }
 
     @Override
@@ -116,12 +88,19 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.deleteById(id);
     }
 
-
     private StudentDto convertToDto(StudentEntity studentEntity) {
+        TrainingsDto trainingDto = null;
+        if (studentEntity.getTraining() != null) {
+            trainingDto = TrainingsDto.builder()
+                    .id(studentEntity.getTraining().getId())
+                    .trainingName(studentEntity.getTraining().getTrainingName())
+                    .build();
+        }
         return StudentDto.builder()
                 .id(studentEntity.getId())
                 .about(studentEntity.getAbout())
                 .feedback(studentEntity.getFeedback())
+                .training(trainingDto)
                 .build();
     }
 }

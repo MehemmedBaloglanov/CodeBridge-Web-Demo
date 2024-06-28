@@ -1,6 +1,5 @@
 package demo.codeBridge.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,10 +13,6 @@ import java.util.List;
 public class TrainingsDto {
     private Long id;
     private String trainingName;
-
-    @JsonIgnore
     private List<StudentDto> students;
-
-    @JsonIgnore
     private List<TeacherDto> teachers;
 }

@@ -2,7 +2,6 @@ package demo.codeBridge.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -12,7 +11,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TrainingsEntity implements Serializable {
+public class TrainingsEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

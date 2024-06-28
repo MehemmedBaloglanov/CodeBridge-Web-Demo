@@ -14,5 +14,6 @@ public class StudentDto {
     private Long id;
     private String about;
     private String feedback;
+    @JsonIgnore
     private TrainingsDto training;
 }

@@ -10,5 +10,5 @@ public class TeacherRequestDto {
     private String contact;
     private String picture;
     private String demoVideo;
-    private TrainingsRequestDto training;
+    private Long trainingId;
 }

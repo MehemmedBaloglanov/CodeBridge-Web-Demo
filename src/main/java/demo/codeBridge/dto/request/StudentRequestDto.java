@@ -8,5 +8,5 @@ import lombok.Data;
 public class StudentRequestDto {
     private String about;
     private String feedback;
-    private TrainingsRequestDto training;
+    private Long trainingId;
 }

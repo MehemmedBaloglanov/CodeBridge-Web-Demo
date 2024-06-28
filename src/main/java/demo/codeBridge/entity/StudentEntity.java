@@ -2,7 +2,6 @@ package demo.codeBridge.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "students")
@@ -11,7 +10,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StudentEntity implements Serializable {
+public class StudentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
