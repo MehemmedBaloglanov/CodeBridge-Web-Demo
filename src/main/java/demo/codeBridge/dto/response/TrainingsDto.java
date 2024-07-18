@@ -11,7 +11,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TrainingsDto {
+
     private Long id;
+
     private String trainingName;
     private List<StudentDto> students;
     private List<TeacherDto> teachers;
