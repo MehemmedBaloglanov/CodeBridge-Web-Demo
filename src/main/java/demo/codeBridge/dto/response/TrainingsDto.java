@@ -12,7 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TrainingsDto {
+
     private Long id;
+
     private String trainingName;
 
     @JsonIgnore
