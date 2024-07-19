@@ -1,6 +1,8 @@
 package demo.codeBridge.service.serviceImpl;
 
 import demo.codeBridge.dto.request.TrainingsRequestDto;
+import demo.codeBridge.dto.response.StudentDto;
+import demo.codeBridge.dto.response.TeacherDto;
 import demo.codeBridge.dto.response.TrainingsDto;
 import demo.codeBridge.entity.TrainingsEntity;
 import demo.codeBridge.exception.NotFoundException;
